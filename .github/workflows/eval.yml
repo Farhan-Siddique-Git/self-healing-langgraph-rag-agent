@@ -67,8 +67,11 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate sample data
-        run: python scripts/generate_sample_data.py
+      # No "generate sample data" step here on purpose — data/policies/*.pdf
+      # and data/employees.csv are already committed to the repo, so CI
+      # ingests the exact same sample data every run instead of regenerating
+      # it (which would also need scripts/generate_sample_data.py's PDF
+      # library declared in requirements.txt, which it currently isn't).
 
       - name: Ingest documents into Qdrant
         run: python -c "from app.ingest import run_ingestion; run_ingestion()"
