@@ -1,0 +1,135 @@
+[
+  {
+    "id": "pto-001",
+    "category": "answerable",
+    "question": "How many PTO days do full-time employees get per year?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["pto", "days", "vacation"]
+  },
+  {
+    "id": "pto-002",
+    "category": "answerable",
+    "question": "What is Acme Corp's vacation policy?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["vacation", "pto", "policy"]
+  },
+  {
+    "id": "remote-001",
+    "category": "answerable",
+    "question": "Can I work from home, and how many days a week?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["remote", "work from home", "days"]
+  },
+  {
+    "id": "remote-002",
+    "category": "answerable",
+    "question": "What is the remote work policy for new hires during their first month?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["remote", "policy"]
+  },
+  {
+    "id": "expense-001",
+    "category": "answerable",
+    "question": "How do I get reimbursed for a business expense?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["expense", "reimburse", "reimbursement"]
+  },
+  {
+    "id": "expense-002",
+    "category": "answerable",
+    "question": "Is there a spending limit for client dinners?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["expense", "limit"]
+  },
+  {
+    "id": "sick-001",
+    "category": "answerable",
+    "question": "What is the sick leave policy at Acme Corp?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["sick", "leave"]
+  },
+  {
+    "id": "conduct-001",
+    "category": "answerable",
+    "question": "What does the code of conduct say about workplace harassment?",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["conduct", "harassment"]
+  },
+  {
+    "id": "benefits-001",
+    "category": "unanswerable",
+    "question": "What health insurance benefits are offered to employees?",
+    "expected_tool": null,
+    "expected_keywords": ["don't have", "not", "cannot", "no information", "unable"]
+  },
+  {
+    "id": "parental-001",
+    "category": "unanswerable",
+    "question": "How much parental leave do employees get?",
+    "expected_tool": null,
+    "expected_keywords": ["don't have", "not", "cannot", "no information", "unable"]
+  },
+  {
+    "id": "employee-001",
+    "category": "answerable",
+    "question": "What department does employee Priya Sharma work in?",
+    "expected_tool": "search_employee",
+    "expected_keywords": ["department"]
+  },
+  {
+    "id": "employee-002",
+    "category": "answerable",
+    "question": "Who is the manager for the engineering team?",
+    "expected_tool": "search_employee",
+    "expected_keywords": []
+  },
+  {
+    "id": "docs-001",
+    "category": "answerable",
+    "question": "What HR policy documents are available in the system?",
+    "expected_tool": "list_documents",
+    "expected_keywords": ["policy", "document"]
+  },
+  {
+    "id": "edge-001",
+    "category": "edge",
+    "question": "pto???",
+    "expected_tool": "search_policies",
+    "expected_keywords": ["pto"]
+  },
+  {
+    "id": "edge-002",
+    "category": "edge",
+    "question": "vacation days and also can i expense my lunch",
+    "expected_tool": "search_policies",
+    "expected_keywords": []
+  },
+  {
+    "id": "unanswerable-001",
+    "category": "unanswerable",
+    "question": "Is it okay if I walk my neighbor's dog during lunch?",
+    "expected_tool": null,
+    "expected_keywords": ["don't have", "not", "cannot", "no information", "unable"]
+  },
+  {
+    "id": "unanswerable-002",
+    "category": "unanswerable",
+    "question": "What's the weather like today?",
+    "expected_tool": null,
+    "expected_keywords": ["don't have", "not", "cannot", "no information", "unable"]
+  },
+  {
+    "id": "unanswerable-003",
+    "category": "unanswerable",
+    "question": "Should I invest my 401k in tech stocks right now?",
+    "expected_tool": null,
+    "expected_keywords": ["don't have", "not", "cannot", "no information", "unable", "financial advice"]
+  },
+  {
+    "id": "unanswerable-004",
+    "category": "unanswerable",
+    "question": "What is the CEO's home address?",
+    "expected_tool": null,
+    "expected_keywords": ["don't have", "not", "cannot", "no information", "unable"]
+  }
+]

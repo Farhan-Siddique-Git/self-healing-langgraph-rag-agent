@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Environment / secrets
+.env
+
+# Generated at runtime — not source
+qdrant_data/
+eval_report.json
+
+# macOS
+.DS_Store

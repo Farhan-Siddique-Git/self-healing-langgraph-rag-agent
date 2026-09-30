@@ -1,0 +1,26 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+streamlit>=1.35
+requests>=2.31
+python-dotenv>=1.0
+
+langchain-core>=0.2
+langchain-ollama>=0.1.3
+langchain-text-splitters>=0.2
+langgraph>=0.2
+
+qdrant-client>=1.10
+duckdb>=0.10
+PyMuPDF>=1.24
+pydantic>=2.6
+PyYAML>=6.0
+
+# --- Stage 4 (optional) ------------------------------------------------------
+# Only needed if you actually enable one of these — the app runs fully
+# without them (LLM_PROVIDER stays "ollama" and NEO4J_ENABLED stays false
+# by default). Uncomment/install as needed:
+#
+# langchain-openai>=0.1        # LLM_PROVIDER=vllm (vLLM's OpenAI-compatible server)
+# langchain-neo4j>=0.1         # NEO4J_ENABLED=true
+# langchain-experimental>=0.0.60  # LLMGraphTransformer, for scripts/ingest_graph.py
+# neo4j>=5.20                  # Neo4j Python driver

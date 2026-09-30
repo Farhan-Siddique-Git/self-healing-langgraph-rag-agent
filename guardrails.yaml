@@ -1,0 +1,52 @@
+# Stage 2: guardrails-as-config.
+#
+# These are plain regex/keyword rules, not model calls — kept out of code so
+# policy changes (adding a banned topic, tightening a PII pattern) never
+# require touching app/guardrails.py or redeploying, just editing this file
+# and calling app.guardrails.reload_rules().
+
+input_guardrails:
+  # If the user's message contains any of these phrases (case-insensitive
+  # substring match), the request is blocked before it ever reaches the LLM.
+  prompt_injection_phrases:
+    - "ignore previous instructions"
+    - "ignore all previous instructions"
+    - "ignore the above instructions"
+    - "disregard previous instructions"
+    - "disregard all previous instructions"
+    - "you are now"
+    - "act as if"
+    - "pretend you are"
+    - "reveal your system prompt"
+    - "reveal your instructions"
+    - "print your system prompt"
+    - "what is your system prompt"
+    - "override your instructions"
+    - "forget your instructions"
+    - "developer mode"
+
+  # Regex patterns for personal data the assistant should never be asked to
+  # process or echo back. Deliberately conservative (a few false positives
+  # are better than leaking a real SSN/card number).
+  pii_patterns:
+    ssn: '\b\d{3}-\d{2}-\d{4}\b'
+    credit_card: '\b(?:\d[ -]*?){13,16}\b'
+
+  block_message: >-
+    I can't process that request — it looks like it may contain sensitive
+    personal information or an attempt to override my instructions. Please
+    rephrase your question without including that.
+
+output_guardrails:
+  # If the generated answer mentions any of these topics, it's replaced with
+  # the block_message below rather than shown to the user. This is a coarse
+  # safety net, not a substitute for good prompting — it catches the case
+  # where the model strays into territory the HR assistant shouldn't discuss.
+  banned_topics:
+    - "competitor"
+    - "lawsuit"
+    - "stock price"
+
+  block_message: >-
+    I'm not able to share information on that topic through this assistant.
+    Please reach out to HR directly if you need help with this.

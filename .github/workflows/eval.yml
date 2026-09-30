@@ -1,0 +1,93 @@
+name: Eval Gate
+
+# Stage 3 CI: runs the golden-dataset eval harness on every push/PR and fails
+# the build if answer quality drops below the threshold in
+# scripts/eval_stage3.py (EVAL_PASS_THRESHOLD env var, default 75%).
+#
+# NOTE: GitHub-hosted runners have no GPU, so qwen2.5:7b runs on CPU here.
+# With ~19 golden-dataset questions (each up to 3 LLM calls due to the
+# Stage 1 self-healing retry loop) this can take 10-20+ minutes. The
+# actions/cache step below caches the pulled Ollama models between runs so
+# only the first run on a given cache key pays the full download cost.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      OLLAMA_BASE_URL: http://127.0.0.1:11434
+      OLLAMA_CHAT_MODEL: qwen2.5:7b
+      OLLAMA_EMBED_MODEL: nomic-embed-text
+      EVAL_PASS_THRESHOLD: "0.75"
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache Ollama models
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama
+          # Bump this key (e.g. add a version suffix) if you change models.
+          key: ollama-models-qwen2.5-7b-nomic-embed-text-v1
+
+      - name: Install Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Start Ollama server
+        run: |
+          nohup ollama serve > ollama.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf "$OLLAMA_BASE_URL/api/version" > /dev/null; then
+              echo "Ollama is up"
+              break
+            fi
+            echo "Waiting for Ollama to start... ($i/30)"
+            sleep 2
+          done
+
+      - name: Pull models
+        run: |
+          ollama pull "$OLLAMA_CHAT_MODEL"
+          ollama pull "$OLLAMA_EMBED_MODEL"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate sample data
+        run: python scripts/generate_sample_data.py
+
+      - name: Ingest documents into Qdrant
+        run: python -c "from app.ingest import run_ingestion; run_ingestion()"
+
+      - name: Run golden-dataset eval
+        run: python scripts/eval_stage3.py
+
+      - name: Upload eval report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: eval_report.json
+          if-no-files-found: warn
+
+      - name: Upload Ollama server log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ollama-log
+          path: ollama.log
+          if-no-files-found: ignore

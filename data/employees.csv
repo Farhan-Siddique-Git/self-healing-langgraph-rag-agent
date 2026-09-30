@@ -1,0 +1,13 @@
+id,name,department,title,manager,email,location,employment_type
+1,Alice Nakamura,Engineering,Senior Software Engineer,David Reyes,alice.nakamura@acmecorp.example,"Magdeburg, DE",Full-time
+2,Bilal Ahmed,Engineering,Software Engineer,David Reyes,bilal.ahmed@acmecorp.example,"Berlin, DE",Full-time
+3,Chloe Fischer,Data Science,ML Engineer,Priya Ramachandran,chloe.fischer@acmecorp.example,"Magdeburg, DE",Full-time
+4,David Reyes,Engineering,Engineering Manager,Sofia Bianchi,david.reyes@acmecorp.example,"Magdeburg, DE",Full-time
+5,Priya Ramachandran,Data Science,Data Science Manager,Sofia Bianchi,priya.ramachandran@acmecorp.example,Remote - EU,Full-time
+6,Sofia Bianchi,Engineering,VP of Engineering,,sofia.bianchi@acmecorp.example,"Berlin, DE",Full-time
+7,Tom Schneider,Engineering,Software Engineering Intern,David Reyes,tom.schneider@acmecorp.example,"Magdeburg, DE",Intern
+8,Maria Gonzalez,HR,HR Business Partner,Jonas Weber,maria.gonzalez@acmecorp.example,"Berlin, DE",Full-time
+9,Jonas Weber,HR,Head of People,,jonas.weber@acmecorp.example,"Berlin, DE",Full-time
+10,Elena Petrova,Finance,Financial Analyst,Marcus Lindqvist,elena.petrova@acmecorp.example,Remote - EU,Full-time
+11,Marcus Lindqvist,Finance,Head of Finance,,marcus.lindqvist@acmecorp.example,"Berlin, DE",Full-time
+12,Hana Kobayashi,Data Science,Data Scientist Intern,Priya Ramachandran,hana.kobayashi@acmecorp.example,"Magdeburg, DE",Intern
